@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horta Inteligente</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Monitor de Umidade da Horta</h1>
+            <p>Acompanhe em tempo real a umidade do solo</p>
+        </header>
+        <main>
+            <div class="humidity-display">
+                <h2>Umidade Atual</h2>
+                <div class="humidity-visual">
+                    <div id="humidity-level" class="humidity-level"></div>
+                </div>
+                <p id="humidity-text">Aguardando dados...</p>
+            </div>
+            <div class="chart-container">
+                <h2>Histórico de Umidade</h2>
+                <canvas id="humidity-chart"></canvas>
+            </div>
+        </main>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
