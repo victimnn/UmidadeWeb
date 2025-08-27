@@ -3,29 +3,182 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Horta Inteligente</title>
+    <title>🌱 HorTec Inteligente - Monitor de Umidade</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>Monitor de Umidade da Horta</h1>
-            <p>Acompanhe em tempo real a umidade do solo</p>
-        </header>
-        <main>
-            <div class="humidity-display">
-                <h2>Umidade Atual</h2>
-                <div class="humidity-visual">
-                    <div id="humidity-level" class="humidity-level"></div>
+        <!-- Header com navegação -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-seedling"></i>
+                    <h1>HorTec Inteligente</h1>
                 </div>
-                <p id="humidity-text">Aguardando dados...</p>
+                <div class="status-badge" id="connection-status">
+                    <i class="fas fa-circle"></i>
+                    <span>Conectando...</span>
+                </div>
             </div>
-            <div class="chart-container">
-                <h2>Histórico de Umidade</h2>
-                <canvas id="humidity-chart"></canvas>
+            <p class="subtitle">Monitoramento inteligente da umidade do solo em tempo real</p>
+        </header>
+
+        <!-- Cards principais -->
+        <main class="main-content">
+            <!-- Card de umidade atual -->
+            <div class="card humidity-card">
+                <div class="card-header">
+                    <h2><i class="fas fa-tint"></i> Umidade Atual</h2>
+                    <div class="last-update" id="last-update">--:--:--</div>
+                </div>
+                
+                <div class="humidity-display">
+                    <div class="humidity-circle">
+                        <div class="humidity-progress">
+                            <div class="humidity-fill" id="humidity-fill"></div>
+                        </div>
+                        <div class="humidity-center">
+                            <div class="humidity-value" id="humidity-value">--</div>
+                            <div class="humidity-unit">%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="humidity-status" id="humidity-status">
+                        <i class="fas fa-question-circle"></i>
+                        <span>Aguardando dados...</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card de estatísticas -->
+            <div class="card stats-card">
+                <div class="card-header">
+                    <h2><i class="fas fa-chart-line"></i> Estatísticas</h2>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-icon">
+                            <i class="fas fa-thermometer-half"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="avg-humidity">--</div>
+                            <div class="stat-label">Média</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-item">
+                        <div class="stat-icon">
+                            <i class="fas fa-arrow-up"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="max-humidity">--</div>
+                            <div class="stat-label">Máxima</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-item">
+                        <div class="stat-icon">
+                            <i class="fas fa-arrow-down"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="min-humidity">--</div>
+                            <div class="stat-label">Mínima</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-item">
+                        <div class="stat-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="readings-count">0</div>
+                            <div class="stat-label">Leituras</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card do gráfico -->
+            <div class="card chart-card">
+                <div class="card-header">
+                    <h2><i class="fas fa-chart-area"></i> Histórico de Umidade</h2>
+                    <div class="chart-controls">
+                        <button class="btn btn-small" id="reset-chart">
+                            <i class="fas fa-refresh"></i> Resetar
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="chart-container">
+                    <canvas id="humidity-chart"></canvas>
+                </div>
+            </div>
+
+            <!-- Card de alertas -->
+            <div class="card alerts-card">
+                <div class="card-header">
+                    <h2><i class="fas fa-bell"></i> Alertas</h2>
+                    <div class="alerts-counter" id="alerts-counter">1</div>
+                </div>
+                
+                <div class="alerts-list" id="alerts-list">
+                    <div class="alert-item info">
+                        <i class="fas fa-info-circle"></i>
+                        <span>Sistema iniciado. Aguardando dados do sensor...</span>
+                    </div>
+                </div>
             </div>
         </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>HorTec Inteligente</h3>
+                    <p>Sistema de monitoramento inteligente da umidade do solo para agricultura sustentável</p>
+                    <p>Desenvolvido para o futuro da agricultura</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Instituição</h3>
+                    <p><strong>ETEC João Belarmino</strong></p>
+                    <p>Centro Paula Souza</p>
+                    <p>Amparo - SP</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Projeto</h3>
+                    <p>Monitoramento de umidade do solo utilizando sensores IoT e tecnologia web</p>
+                    <p>Integração Arduino + Node.js + Interface Web</p>
+                </div>
+            </div>
+            
+            <div class="footer-logos">
+                <div class="logo-item">
+                    <img src="img/etec_amparo-white.png" alt="ETEC João Belarmino" class="footer-logo">
+                    <span>ETEC João Belarmino</span>
+                </div>
+                <div class="logo-item">
+                    <img src="img/logo_cps.png" alt="Centro Paula Souza" class="footer-logo">
+                    <span>Centro Paula Souza</span>
+                </div>
+                <div class="logo-item">
+                    <img src="img/DSBRANCO.png" alt="Desenvolvimento de Sistemas" class="footer-logo">
+                    <span>Desenvolvimento de Sistemas</span>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 HorTec Inteligente - ETEC João Belarmino</p>
+                <p>Sistema de Monitoramento de Umidade do Solo</p>
+            </div>
+        </footer>
     </div>
+
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="script.js"></script>
